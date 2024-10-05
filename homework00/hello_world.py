@@ -1,7 +1,7 @@
 """Фнункция по возврату сообщения"""
 
 
-def text(message):
+def text():
     """Возвращает message"""
 
-    return message()
+    return "message"
