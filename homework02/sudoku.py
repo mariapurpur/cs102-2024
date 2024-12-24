@@ -38,8 +38,7 @@ def group(values: tp.List[T], n: int) -> tp.List[tp.List[T]]:
     >>> group([1,2,3,4,5,6,7,8,9], 3)
     [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     """
-    result = [values[i : i + n] for i in range(0, len(values), n)]
-    return result
+    return [values[i : i + n] for i in range(0, len(values), n)]
 
 
 def get_row(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
@@ -65,8 +64,7 @@ def get_col(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str
     ['3', '6', '9']
     """
     _, col = pos
-    result = [x[col] for x in grid]
-    return result
+    return [x[col] for x in grid]
 
 
 def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
@@ -82,8 +80,7 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     row, col = pos
     row_start = (row // 3) * 3
     col_start = (col // 3) * 3
-    result = [grid[row_start + i // 3][col_start + i % 3] for i in range(9)]
-    return result
+    return [grid[row_start + i // 3][col_start + i % 3] for i in range(9)]
 
 
 def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[int, int]]:
@@ -114,8 +111,7 @@ def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -
     """
     used_values = set(get_row(grid, pos)) | set(get_col(grid, pos)) | set(get_block(grid, pos))
     all_values = set(map(str, range(1, 10)))
-    result = list(all_values - used_values)
-    return set(result)
+    return all_values - used_values
 
 
 def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
@@ -150,7 +146,7 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
         block_row = (i // 3) * 3
         block_col = (i % 3) * 3
         block = get_block(solution, (block_row, block_col))
-        for j in range(1, 10, 1):
+        for j in range(1, 10):
             if str(j) not in col:
                 return False
             if str(j) not in row:
@@ -184,7 +180,7 @@ def generate_sudoku(n: int) -> tp.List[tp.List[str]]:
     size = 9
     empty_grid = [["." for _ in range(size)] for _ in range(size)]
     solve(empty_grid)
-    solved_grid = [row[:] for row in empty_grid]
+    solved_grid = solve(empty_grid)
     cells_to_remove = size * size - n
 
     positions = [(i, j) for i in range(size) for j in range(size)]
