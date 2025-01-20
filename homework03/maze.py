@@ -91,17 +91,17 @@ def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str,
     :param k:
     :return:
     """
-    for pos1, row in enumerate(grid):
-        for pos2, _ in enumerate(row):
-            if grid[pos1][pos2] == k:
-                if pos1 + 1 < len(grid) and grid[pos1 + 1][pos2] == 0:
-                    grid[pos1 + 1][pos2] = k + 1
-                if pos1 - 1 >= 0 and grid[pos1 - 1][pos2] == 0:
-                    grid[pos1 - 1][pos2] = k + 1
-                if pos2 + 1 < len(grid[0]) and grid[pos1][pos2 + 1] == 0:
-                    grid[pos1][pos2 + 1] = k + 1
-                if pos2 - 1 >= 0 and grid[pos1][pos2 - 1] == 0:
-                    grid[pos1][pos2 - 1] = k + 1
+    rows = len(grid)
+    cols = len(grid[0])
+
+    for r, row in enumerate(grid):
+        for c, val in enumerate(row):
+            if val == k:
+                for deltarow, deltacol in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                    newrow, newcol = r + deltarow, c + deltacol
+                    if 0 <= newrow < rows and 0 <= newcol < cols and grid[newrow][newcol] == 0:
+                        grid[newrow][newcol] = k + 1
+
     return grid
 
 
@@ -150,14 +150,19 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
     """
     x, y = coord
     rows, cols = len(grid), len(grid[0])
-    if x <= 0 or x >= rows - 1 or y <= 0 or y >= cols - 1:
-        return False
-    return (
-        grid[x - 1][y] == " "
-        and grid[x + 1][y] == " "
-        and grid[x][y - 1] == " "
-        and grid[x][y + 1] == " "
-    )
+    pass
+    if (x in (0, rows - 1) and y in (0, cols - 1)) or (x - 1 == 0 and y + 1 == cols - 1):
+        return True
+
+    if x == 0 and y in range(0, cols) and grid[x + 1][y] == "■":
+        return True
+    if x == rows - 1 and y in range(0, cols) and grid[x - 1][y] == "■":
+        return True
+    if y == 0 and x in range(0, rows) and grid[x][y + 1] == "■":
+        return True
+    if y == cols - 1 and x in range(0, rows) and grid[x][y - 1] == "■":
+        return True
+    return False
 
 
 def solve_maze(
