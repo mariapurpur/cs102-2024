@@ -41,12 +41,22 @@ class Console(UI):
                 screen.refresh()
             elif self.life.is_max_generations_exceeded and self.life.is_changing:
                 screen.clear()
-                screen.addstr(0, 0, "Число возможных поколений иссекло" '\t Нажмите "X" для выхода')
+                screen.addstr(
+                    0,
+                    0,
+                    "Число возможных поколений иссекло" '\t Нажмите "X" для выхода',
+                )
                 screen.refresh()
                 sign = False
-            elif not self.life.is_max_generations_exceeded and not self.life.is_changing:
+            elif (
+                not self.life.is_max_generations_exceeded and not self.life.is_changing
+            ):
                 screen.clear()
-                screen.addstr(0, 0, "Вы достигли финальной стадии жизни" '\t Нажмите "X" для выхода')
+                screen.addstr(
+                    0,
+                    0,
+                    "Вы достигли финальной стадии жизни" '\t Нажмите "X" для выхода',
+                )
                 screen.refresh()
                 sign = False
             time.sleep(0.5)
