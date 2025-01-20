@@ -99,7 +99,11 @@ def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str,
             if val == k:
                 for deltarow, deltacol in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
                     newrow, newcol = r + deltarow, c + deltacol
-                    if 0 <= newrow < rows and 0 <= newcol < cols and grid[newrow][newcol] == 0:
+                    if (
+                        0 <= newrow < rows
+                        and 0 <= newcol < cols
+                        and grid[newrow][newcol] == 0
+                    ):
                         grid[newrow][newcol] = k + 1
 
     return grid
@@ -151,7 +155,9 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
     x, y = coord
     rows, cols = len(grid), len(grid[0])
     pass
-    if (x in (0, rows - 1) and y in (0, cols - 1)) or (x - 1 == 0 and y + 1 == cols - 1):
+    if (x in (0, rows - 1) and y in (0, cols - 1)) or (
+        x - 1 == 0 and y + 1 == cols - 1
+    ):
         return True
 
     if x == 0 and y in range(0, cols) and grid[x + 1][y] == "■":
