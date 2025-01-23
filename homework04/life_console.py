@@ -48,9 +48,7 @@ class Console(UI):
                 )
                 screen.refresh()
                 sign = False
-            elif (
-                not self.life.is_max_generations_exceeded and not self.life.is_changing
-            ):
+            elif not self.life.is_max_generations_exceeded and not self.life.is_changing:
                 screen.clear()
                 screen.addstr(
                     0,

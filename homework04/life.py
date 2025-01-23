@@ -27,10 +27,7 @@ class GameOfLife:
 
     def create_grid(self, randomize: bool = False) -> Grid:
         if randomize:
-            grid = [
-                [random.randint(0, 1) for _ in range(self.cols)]
-                for _ in range(self.rows)
-            ]
+            grid = [[random.randint(0, 1) for _ in range(self.cols)] for _ in range(self.rows)]
             return grid
         else:
             grid = [[0 for _ in range(self.cols)] for _ in range(self.rows)]
@@ -40,11 +37,7 @@ class GameOfLife:
         s = []  # Список для соседей
         for i in range(-1, 2):
             for j in range(-1, 2):
-                if (
-                    (i != 0 or j != 0)
-                    and (0 <= cell[0] + i < self.rows)
-                    and (0 <= cell[1] + j < self.cols)
-                ):
+                if (i != 0 or j != 0) and (0 <= cell[0] + i < self.rows) and (0 <= cell[1] + j < self.cols):
                     s.append(self.curr_generation[cell[0] + i][cell[1] + j])
         return s  # Присваивание списка соседей
 
